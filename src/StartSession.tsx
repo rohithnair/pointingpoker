@@ -1,18 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState  } from 'react'
+import useWebSocket from 'react-use-websocket';
 
 const StartSession: React.FC = () => {
-    const [name, setName] = React.useState('')
+    const [name, setName] = useState('')
+    const [sendMessage] = useWebSocket("ws://localhost:8999");
+    const startSession  = () =>{
+      console.log("name is"+name);
+      sendMessage(name)
+    };
+ 
 
-    function createSession() :void
-    {  
-        alert(name);
-
-    }
   return (
-     <form onSubmit={createSession}>
+     <form >
          <div>Enter your name</div>
          <input type="text" value={name} onChange={event=>setName(event.target.value)} ></input>
-         <input type="submit" value= "Start session"></input>
+         <input type="button" value= "Start session" onClick={()=>startSession()}></input>
     </form>
   );
 }
