@@ -5,8 +5,11 @@ const StartSession: React.FC = () => {
     const [name, setName] = useState('')
     const [sendMessage] = useWebSocket("ws://localhost:8999");
     const startSession  = () =>{
-      console.log("name is"+name);
-      sendMessage(name)
+     var message = {
+       command:'START_SESSION',
+       joinName:name
+     };
+      sendMessage(JSON.stringify(message))
     };
  
 
